@@ -272,7 +272,7 @@
               "progress": {
                 "type": "number",
                 "description": "persent of tasks that user did",
-                "example": 50
+                "example": 0
               }
             }
           }
