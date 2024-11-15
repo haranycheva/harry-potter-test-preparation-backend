@@ -1,0 +1,378 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Test preparing service",
+    "version": "0.3",
+    "description": "Test preparing service database manages user profiles, topics and tests",
+    "contact": {
+      "name": "",
+      "email": "",
+      "url": ""
+    }
+  },
+  "consumes": ["application/json", "multipart/form-data"],
+  "produces": ["application/json", "multipart/form-data"],
+  "servers": [
+    {
+      "url": ""
+    }
+  ],
+  "tags": [
+    {
+      "name": "Auth",
+      "description": "Authorization endpoints"
+    },
+    {
+      "name": "User",
+      "description": "User endpoints"
+    }
+  ],
+  "paths": {
+    "/api/auth/signup": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "User registration",
+        "requestBody": {
+          "description": "Registration's object",
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/RegistrationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegistrationResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "409": {
+            "description": "Provided email already exists",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/auth/signin": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "User login",
+        "parameters": [],
+        "requestBody": {
+          "description": "Login's object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegistrationResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "401": {
+            "description": "Email or password invalid!",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/auth/logout": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "User logout",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LogoutResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authorized/User not found",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/auth/getInfo": {
+      "get": {
+        "tags": ["User"],
+        "summary": "User get all info",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
+          "description": "getInfo's object",
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetInfoResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authorized/User not found",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/auth/": {
+      "put": {
+        "tags": ["User"],
+        "summary": "User change info",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
+          "description": "changeInfo's object",
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/EditUserRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetInfoResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authorized",
+            "content": {}
+          },
+          "400": {
+            "description": "Password or email can't be changed",
+            "content": {}
+          },
+          "404": {
+            "description": "User not found",
+            "content": {}
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "RegistrationRequest": {
+        "type": "object",
+        "required": ["email", "password", "firstName", "lastName"],
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email"
+          },
+          "password": {
+            "type": "string",
+            "description": "User's password",
+            "example": "qwerty123"
+          },
+          "firstName": {
+            "type": "string",
+            "description": "User's name",
+            "example": "Pavlo"
+          },
+          "lastName": {
+            "type": "string",
+            "description": "User's last name",
+            "example": "Dziga"
+          },
+          "avatar": {
+            "type": "string",
+            "format": "binary",
+            "description": "User's avatar"
+          }
+        }
+      },
+      "RegistrationResponse": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string",
+            "description": "User's token",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3MWNmZTZjYzk2MzlhYzNmODEyMGY0YiIsImlhdCI6MTcyOTk1MzM4OSwiZXhwIjoxNzMwMDM2MTg5fQ.nBL9aA-aU_Necx6BHXNfk-ORsEAlU4L99H5CZyxjqvo"
+          },
+          "user": {
+            "type": "object",
+            "properties": {
+              "_id": {
+                "type": "string",
+                "description": "User's ID",
+                "example": "671cfe6cc9639ac3f8120f4b"
+              },
+              "email": {
+                "type": "string",
+                "description": "User's email",
+                "example": "user@gmail.com",
+                "format": "email"
+              },
+              "firstName": {
+                "type": "string",
+                "description": "User's name",
+                "example": "Pavlo"
+              },
+              "lastName": {
+                "type": "string",
+                "description": "User's last name",
+                "example": "Dziga"
+              },
+              "avatar": {
+                "type": "string",
+                "description": "Avatar image link",
+                "example": "https://res.cloudinary.com/dk3syrsg5/image/upload/v1731665163/zno-preparing-user/photo_2024-11-15_12-05-23_wrbes3.jpg"
+              },
+              "progress": {
+                "type": "number",
+                "description": "persent of tasks that user did",
+                "example": 50
+              }
+            }
+          }
+        }
+      },
+      "LoginRequest": {
+        "type": "object",
+        "required": ["email", "password"],
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email",
+            "example": "user@gmail.com"
+          },
+          "password": {
+            "type": "string",
+            "description": "User's password",
+            "example": "qwerty123"
+          }
+        }
+      },
+      "LogoutResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "User's logout",
+            "example": "Logout success!"
+          }
+        }
+      },
+      "GetInfoResponse": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "User's ID",
+            "example": "671cfe6cc9639ac3f8120f4b"
+          },
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "example": "user@gmail.com",
+            "format": "email"
+          },
+          "firstName": {
+            "type": "string",
+            "description": "User's name",
+            "example": "Pavlo"
+          },
+          "lastName": {
+            "type": "string",
+            "description": "User's last name",
+            "example": "Dziga"
+          },
+          "avatar": {
+            "type": "string",
+            "description": "Avatar image link",
+            "example": "https://res.cloudinary.com/dk3syrsg5/image/upload/v1731665163/zno-preparing-user/photo_2024-11-15_12-05-23_wrbes3.jpg"
+          },
+          "progress": {
+            "type": "number",
+            "description": "persent of tasks that user did",
+            "example": 50
+          }
+        }
+      },
+      "EditUserRequest": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string",
+            "description": "User's name",
+            "example": "Baby Shark"
+          },
+          "phone": {
+            "type": "string",
+            "description": "User's phone",
+            "example": "+380123456789"
+          },
+          "adress": {
+            "type": "string",
+            "description": "User's adress",
+            "example": "Kyiv, Ukraine"
+          },
+          "avatar": {
+            "type": "string",
+            "format": "binary",
+            "description": "User's avatar"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "Bearer": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}
