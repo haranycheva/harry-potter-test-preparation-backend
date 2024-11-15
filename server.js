@@ -5,7 +5,7 @@ const {DB_HOST} = process.env
 
 mongoose.connect(DB_HOST).then(() => {
   console.log("DB connect")
-  app.listen(3123);
+  app.listen(3023);
 }).catch((err) => {
   console.log(err.message); 
   process.exit(1)
