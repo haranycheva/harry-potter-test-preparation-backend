@@ -28,7 +28,7 @@
     }
   ],
   "paths": {
-    "/api/auth/signup": {
+    "/auth/signup": {
       "post": {
         "tags": ["Auth"],
         "summary": "User registration",
@@ -65,7 +65,7 @@
         }
       }
     },
-    "/api/auth/signin": {
+    "/auth/signin": {
       "post": {
         "tags": ["Auth"],
         "summary": "User login",
@@ -103,7 +103,7 @@
         }
       }
     },
-    "/api/auth/logout": {
+    "/auth/logout": {
       "post": {
         "tags": ["Auth"],
         "summary": "User logout",
@@ -127,7 +127,7 @@
         }
       }
     },
-    "/api/auth/getInfo": {
+    "/auth/getInfo": {
       "get": {
         "tags": ["User"],
         "summary": "User get all info",
@@ -155,7 +155,7 @@
         }
       }
     },
-    "/api/auth/": {
+    "/auth/": {
       "put": {
         "tags": ["User"],
         "summary": "User change info",
