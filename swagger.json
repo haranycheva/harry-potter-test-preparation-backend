@@ -14,7 +14,7 @@
   "produces": ["application/json", "multipart/form-data"],
   "servers": [
     {
-      "url": ""
+      "url": "https://harry-potter-test-preparation-backend.onrender.com"
     }
   ],
   "tags": [
