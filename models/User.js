@@ -29,7 +29,7 @@ const userSchema = new Schema(
     },
     avatar: {
       type: String,
-      default: "https://res.cloudinary.com/dk3syrsg5/image/upload/v1731665163/zno-preparing-user/photo_2024-11-15_12-05-23_wrbes3.jpg"
+      default: "https://res.cloudinary.com/dk3syrsg5/image/upload/v1734983002/harry-potter-cat-version-v0-0z3cpxqd80hc1_yho1wv.webp"
     },
     progress: {
       type: Number,
