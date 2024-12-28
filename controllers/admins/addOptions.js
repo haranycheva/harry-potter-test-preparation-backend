@@ -9,18 +9,31 @@ const addOptions = async (req, res) => {
   if (!task) {
     throw HttpError(404, "Task with that id does not exist");
   }
-  const result = []
-  for (const el of req.body.optionsArr){
-    const newOption = await Option.create({
+  if (req.body.optionsArr) {
+    const result = [];
+    for (const el of req.body.optionsArr) {
+      const newOption = await Option.create({
         ...el,
         task: taskId,
       });
       if (!newOption) {
         throw HttpError(500, `Creating option ${el} failed`);
       }
-      result.push(newOption)
+      result.push(newOption);
+    }
+    res.status(201).json(result);
+  } else {
+    const { name, isCorrect } = req.body;
+    const newOption = await Option.create({
+      name,
+      isCorrect,
+      task: taskId,
+    });
+    if (!newOption) {
+      throw HttpError(500, `Creating option ${name} failed`);
+    }
+    res.status(201).json(newOption);
   }
-  res.status(201).json(result);
 };
 
 export default addOptions;

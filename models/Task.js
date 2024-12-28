@@ -57,8 +57,9 @@ const taskSchema = new Schema(
           `field questionsQuant doesn't satisfy the task type "${props.instance.type}"`,
       },
     },
-    oddAnswer: {
-      type: String,
+    oddAnswer: [String],
+    isTest: {
+      type: Boolean
     },
     topic: {
       type: Schema.Types.ObjectId,

@@ -8,18 +8,31 @@ const addQuestions = async (req, res) => {
   if (!task) {
     throw HttpError(404, "Task with that id does not exist");
   }
-  const result = []
-  for (const el of req.body.questionsArr){
-    const newQuestion = await Question.create({
+  const result = [];
+  if (req.body.questionsArr) {
+    for (const el of req.body.questionsArr) {
+      const newQuestion = await Question.create({
         ...el,
         task: taskId,
       });
       if (!newQuestion) {
         throw HttpError(500, `Creating question ${el} failed`);
       }
-      result.push(newQuestion)
+      result.push(newQuestion);
+    }
+    res.status(201).json(result);
+  } else {
+    const { condition, answer } = req.body;
+    const newQuestion = await Question.create({
+      condition,
+      answer,
+      task: taskId,
+    });
+    if (!newQuestion) {
+      throw HttpError(500, `Creating question ${condition} failed`);
+    }
+    res.status(201).json(newQuestion);
   }
-  res.status(201).json(result);
 };
 
 export default addQuestions;
