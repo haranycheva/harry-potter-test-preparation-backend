@@ -3,6 +3,7 @@ import fs from "fs/promises";
 
 const folders = {
   user: "zno-preparing-user",
+  task: "task-pictures"
 };
 
 const addPicture = async (req, folder) => {
