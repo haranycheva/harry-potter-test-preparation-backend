@@ -1,6 +1,5 @@
 import { HttpError } from "../../helpers/index.js";
 import { Option } from "../../models/Option.js";
-import { Question } from "../../models/Question.js";
 import { Task } from "../../models/Task.js";
 
 const addOptions = async (req, res) => {

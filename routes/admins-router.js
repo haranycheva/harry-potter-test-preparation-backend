@@ -1,13 +1,13 @@
 import express from "express";
 import adminsControllers from "../controllers/admins-controllers.js";
-import { upload } from "../middleware/index.js";
-import { validateBody } from "../decorators/index.js";
+import { upload, validateTask } from "../middleware/index.js";
 const adminsRouter = express.Router();
 
 adminsRouter.post("/", adminsControllers.addTopic);
 
 adminsRouter.post(
   "/:id",
+  validateTask,
   upload.single("captionPicture"),
   adminsControllers.addTaskToTopic
 );

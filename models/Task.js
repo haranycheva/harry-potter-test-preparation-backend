@@ -28,34 +28,10 @@ const taskSchema = new Schema(
       type: String,
     },
     optionsQuant: {
-      type: mongoose.Schema.Types.Mixed,
-      validate: {
-        validator: function (value) {
-          if (this.type === "options") {
-            return typeof value === "number";
-          } else if (this.type === "input" || this.type === "match") {
-            return value === undefined;
-          }
-          return false;
-        },
-        message: (props) =>
-          `field optionsQuant doesn't satisfy the task type "${props.instance.type}"`,
-      },
+      type: Number,
     },
     questionsQuant: {
-      type: mongoose.Schema.Types.Mixed,
-      validate: {
-        validator: function (value) {
-          if (this.type === "match") {
-            return typeof value === "number";
-          } else if (this.type === "input" || this.type === "options") {
-            return value === undefined;
-          }
-          return false;
-        },
-        message: (props) =>
-          `field questionsQuant doesn't satisfy the task type "${props.instance.type}"`,
-      },
+      type: Number,
     },
     oddAnswer: [String],
     isTest: {
