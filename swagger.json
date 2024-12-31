@@ -344,20 +344,15 @@
       "EditUserRequest": {
         "type": "object",
         "properties": {
-          "username": {
+          "firstName": {
             "type": "string",
             "description": "User's name",
             "example": "Baby Shark"
           },
-          "phone": {
+          "lastName": {
             "type": "string",
-            "description": "User's phone",
-            "example": "+380123456789"
-          },
-          "adress": {
-            "type": "string",
-            "description": "User's adress",
-            "example": "Kyiv, Ukraine"
+            "description": "User's name",
+            "example": "Baby Shark"
           },
           "avatar": {
             "type": "string",
