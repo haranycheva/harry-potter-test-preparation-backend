@@ -1,9 +1,12 @@
 import express from "express";
 import adminsControllers from "../controllers/admins-controllers.js";
 import { upload, validateTask } from "../middleware/index.js";
+import {validateBody} from "../decorators/index.js";
+import { TopicValidationSchema } from "../schema/admins/topic-schema.js";
+
 const adminsRouter = express.Router();
 
-adminsRouter.post("/", adminsControllers.addTopic);
+adminsRouter.post("/", validateBody(TopicValidationSchema), adminsControllers.addTopic);
 
 adminsRouter.post(
   "/:id",
