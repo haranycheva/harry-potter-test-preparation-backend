@@ -6,10 +6,11 @@ import {
 } from "../schema/admins/task/index.js";
 const validateTask = (req, res, next) => {
   const type = req.body.type;
+  console.log(type)
   if (type === "input") {
     checkSchema(InputTaskValidationSchema, req, next);
-  } else if (type === "option") {
-    checkSchema(OptionTaskValidationSchema, req, next);
+  } else if (type === "options") {
+    checkSchema(OptionTaskValidationSchema, req, next); 
   } else if (type === "match") {
     checkSchema(MatchTaskValidationSchema, req, next);
   }
