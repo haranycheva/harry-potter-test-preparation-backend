@@ -1,0 +1,5 @@
+export {default as getAllTopics} from "./getAllTopics.js"
+export {default as getTopicById} from "./getTopicById.js"
+export {default as getTaskById} from "./getTaskById.js"
+export {default as getTestTasks} from "./getTestTasks.js"
+export {default as getTopicTasksInformation} from "./getTopicTasksInformation.js"
