@@ -25,22 +25,4 @@ adminsRouter.post(
   adminsControllers.addQuestions
 );
 
-// authRouter.post(
-//   "/signin",
-//   validateBody(signinValidationSchema),
-//   authControllers.signin
-// );
-
-// authRouter.get("/getInfo", authorization, authControllers.getInfo);
-
-// authRouter.post("/logout", authorization, authControllers.logout);
-
-// authRouter.put(
-//   "/",
-//   upload.single("avatar"),
-//   authorization,
-//   validateBody(editUserSchema),
-//   authControllers.redactUser
-// );
-
 export default adminsRouter;
