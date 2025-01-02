@@ -1,28 +1,26 @@
 import express from "express";
 import digestControllers from "../controllers/digest-controllers.js";
-import { upload, validateTask } from "../middleware/index.js";
 
 const digestRouter = express.Router();
 
 digestRouter.get("/", digestControllers.getAllTopics);
 
-digestRouter.post(
+digestRouter.get(
   "/:id",
   digestControllers.getTopicById
 );
 
-digestRouter.post(
+digestRouter.get(
   "/task/:id",
   digestControllers.getTaskById
 );
 
-
-digestRouter.post(
+digestRouter.get(
   "/tasks/:topicId",
   digestControllers.getTopicTasksInformation
 );
 
-digestRouter.post(
+digestRouter.get(
   "/test/:id",
   digestControllers.getTestTasks
 );

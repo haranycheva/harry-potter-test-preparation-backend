@@ -25,6 +25,10 @@
     {
       "name": "User",
       "description": "User endpoints"
+    },
+    {
+      "name": "Digest",
+      "description": "Information from digest gets"
     }
   ],
   "paths": {
@@ -197,6 +201,185 @@
           }
         }
       }
+    },
+    "/topic/": {
+      "get": {
+        "tags": ["Digest"],
+        "summary": "Get all topics",
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Topic"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/topic/{id}": {
+      "get": {
+        "tags": ["Digest"],
+        "summary": "Get topic by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID of the topic",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Topic"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Topic not found",
+            "content": {}
+          },
+          "500": {
+            "description": "Server error",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/topic/task/{id}": {
+      "get": {
+        "tags": ["Digest"],
+        "summary": "Get task by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID of the task",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Task"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Task not found",
+            "content": {}
+          },
+          "500": {
+            "description": "Server error",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/topic/tasks/{topicId}": {
+      "get": {
+        "tags": ["Digest"],
+        "summary": "Get tasks information for a topic",
+        "parameters": [
+          {
+            "name": "topicId",
+            "in": "path",
+            "required": true,
+            "description": "ID of the topic",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Task"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Topic or tasks not found",
+            "content": {}
+          },
+          "500": {
+            "description": "Server error",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/topic/test/{id}": {
+      "get": {
+        "tags": ["Digest"],
+        "summary": "Get test tasks by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID of the test",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Task"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Test or tasks not found",
+            "content": {}
+          },
+          "500": {
+            "description": "Server error",
+            "content": {}
+          }
+        }
+      }
     }
   },
   "components": {
@@ -360,6 +543,69 @@
             "description": "User's avatar"
           }
         }
+      },
+      "Topic": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "Unique identifier for the topic",
+            "example": "64b7c7f9a19f4b2c5d8c1a9d"
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the topic",
+            "example": "Mathematics"
+          },
+          "number": {
+            "type": "integer",
+            "description": "Sequential number or order of the topic",
+            "minimum": 1,
+            "example": 1
+          },
+          "totalTasks": {
+            "type": "integer",
+            "description": "Total number of tasks in the topic",
+            "minimum": 0,
+            "example": 20
+          }
+        }
+      },
+      "Task": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "Unique identifier for the topic",
+            "example": "64b7c7f9a19f4b2c5d8c1a9d"
+          },
+          "condition": {
+            "type": "string",
+            "description": "The problem or question the user must solve",
+            "example": "Один з операторів комп’ютерного набору може набрати певний рукопис, працюючи самостійно, за 30 днів, а інший – за 60 днів. За скільки днів виконають набір рукопису оператори, працюючи разом?"
+          },
+          "caption": {
+            "type": "string",
+            "description": "Hint or instruction for the user",
+            "example": "Введіть просто число"
+          },
+          "possibleScore": {
+            "type": "integer",
+            "description": "Maximum score achievable for the task",
+            "example": 3
+          },
+          "type": {
+            "type": "string",
+            "description": "The type of task",
+            "enum": ["match", "input"],
+            "example": "input"
+          },
+          "answer": {
+            "type": "string",
+            "description": "The correct answer to the task",
+            "example": "20"
+          }
+        }
       }
     },
     "securitySchemes": {
@@ -371,4 +617,3 @@
     }
   }
 }
-
