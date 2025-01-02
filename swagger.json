@@ -206,6 +206,7 @@
       "get": {
         "tags": ["Digest"],
         "summary": "Get all topics",
+        "security": [{ "Bearer": [] }],
         "responses": {
           "200": {
             "description": "Successful operation",
@@ -231,6 +232,7 @@
       "get": {
         "tags": ["Digest"],
         "summary": "Get topic by ID",
+        "security": [{ "Bearer": [] }],
         "parameters": [
           {
             "name": "id",
@@ -268,6 +270,7 @@
       "get": {
         "tags": ["Digest"],
         "summary": "Get task by ID",
+        "security": [{ "Bearer": [] }],
         "parameters": [
           {
             "name": "id",
@@ -305,6 +308,7 @@
       "get": {
         "tags": ["Digest"],
         "summary": "Get tasks information for a topic",
+        "security": [{ "Bearer": [] }],
         "parameters": [
           {
             "name": "topicId",
@@ -345,6 +349,7 @@
       "get": {
         "tags": ["Digest"],
         "summary": "Get test tasks by ID",
+        "security": [{ "Bearer": [] }],
         "parameters": [
           {
             "name": "id",
