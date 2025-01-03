@@ -5,7 +5,8 @@ const OptionTaskValidationSchema = Joi.object({
     caption: Joi.string().min(1),
     possibleScore: Joi.number().required(),
     type: Joi.string().valid("options"),
-    optionsQuant: Joi.number().required()
+    optionsQuant: Joi.number().required(),
+    isTest: Joi.bool()
 })
 
 export default OptionTaskValidationSchema

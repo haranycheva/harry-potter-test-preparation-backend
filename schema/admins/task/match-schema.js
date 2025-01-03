@@ -6,7 +6,8 @@ const MatchTaskValidationSchema = Joi.object({
     possibleScore: Joi.number().required(),
     type: Joi.string().valid("match"),
     questionsQuant: Joi.number().required(),
-    oddAnswer: Joi.array().items(Joi.string().required())
+    oddAnswer: Joi.array().items(Joi.string().required()) ,
+    isTest: Joi.bool()
 })
 
 export default MatchTaskValidationSchema
