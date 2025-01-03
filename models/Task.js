@@ -33,9 +33,12 @@ const taskSchema = new Schema(
     questionsQuant: {
       type: Number,
     },
-    oddAnswer: [String],
+    oddAnswer: {
+      type: [String],
+      default: undefined
+    },
     isTest: {
-      type: Boolean
+      type: Boolean,
     },
     topic: {
       type: Schema.Types.ObjectId,
