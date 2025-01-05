@@ -33,7 +33,7 @@ const taskSchema = new Schema(
     questionsQuant: {
       type: Number,
     },
-    oddAnswer: {
+    oddAnswers: {
       type: [String],
       default: undefined
     },
