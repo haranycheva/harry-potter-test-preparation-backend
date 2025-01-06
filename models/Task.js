@@ -8,7 +8,7 @@ const taskSchema = new Schema(
       type: String,
       required: [true, "condition of task is required"],
     },
-    conditionPicture: {
+    captionPicture: {
       type: String,
     },
     caption: {
