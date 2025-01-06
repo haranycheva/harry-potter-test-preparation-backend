@@ -40,6 +40,12 @@ const taskSchema = new Schema(
     isTest: {
       type: Boolean,
     },
+    questionCaption: {
+      type: String,
+    },
+    answersCaption: {
+      type: String,
+    },
     topic: {
       type: Schema.Types.ObjectId,
       required: true,
