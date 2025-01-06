@@ -8,25 +8,21 @@ digestRouter.get("/", digestControllers.getAllTopics);
 
 digestRouter.get(
   "/:id",
-  authorization,
   digestControllers.getTopicById
 );
 
 digestRouter.get(
   "/task/:id",
-  authorization,
   digestControllers.getTaskById
 );
 
 digestRouter.get(
   "/tasks/:topicId",
-  authorization,
   digestControllers.getTopicTasksInformation
 );
 
 digestRouter.get(
   "/test/:id",
-  authorization,
   digestControllers.getTestTasks
 );
 
