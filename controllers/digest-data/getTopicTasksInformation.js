@@ -8,12 +8,11 @@ const getTopicTasksInformation = async (req, res, next) => {
     topic: topicId,
   });
   if (!result) {
-    throw HttpError(
-      404,
-      `Can not find any task for topic with id ${topicId}`
-    );
+    throw HttpError(404, `Can not find any task for topic with id ${topicId}`);
   }
-  const remakedTasks = result.map((item) => remakeTask(item))
+  const remakedTasks = await Promise.all(
+    result.map((item) => remakeTask(item))
+  );
   res.json(remakedTasks);
 };
 
