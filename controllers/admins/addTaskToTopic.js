@@ -1,4 +1,4 @@
-import { HttpError } from "../../helpers/index.js";
+import { addPicture, HttpError } from "../../helpers/index.js";
 import { Task } from "../../models/Task.js";
 import { Topic } from "../../models/Topic.js";
 
