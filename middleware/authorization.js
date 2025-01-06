@@ -6,7 +6,7 @@ import jwt from "jsonwebtoken";
 
 const {JWT_SECRET} = process.env;
 
-export const authorization = async (req, res, next) => {
+const authorization = async (req, res, next) => {
   const { authorization } = req.headers;
   if (!authorization) {
     throw HttpError(401, "authorization header not found");

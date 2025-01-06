@@ -1,6 +1,6 @@
 import express from "express";
 import digestControllers from "../controllers/digest-controllers.js";
-import { authorization } from "../middleware/authorization.js";
+import authorization  from "../middleware/authorization.js";
 
 const digestRouter = express.Router();
 
