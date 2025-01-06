@@ -1,4 +1,4 @@
-import { HttpError } from "../../helpers/index.js";
+import { HttpError, remakeTask } from "../../helpers/index.js";
 import { Task } from "../../models/Task.js";
 
 const getTopicTasksInformation = async (req, res, next) => {
@@ -13,7 +13,8 @@ const getTopicTasksInformation = async (req, res, next) => {
       `Can not find any task for topic with id ${topicId}`
     );
   }
-  res.json(result);
+  const remakedTasks = result.map((item) => remakeTask(item))
+  res.json(remakedTasks);
 };
 
 export default getTopicTasksInformation;
