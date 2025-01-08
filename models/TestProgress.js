@@ -3,18 +3,14 @@ import { handleSaveError, preUpdate } from "./hooks.js";
 
 const testProgressSchema = new Schema(
   {
-    aviable: {
-      type: Boolean,
-      required: [true, "aviability of topic is required"],
-    },
-    score: {
+    maxScore: {
       type: Number,
       required: [true, "score quantity is required"]
     },
-    test: {
+    topic: {
         type: Schema.Types.ObjectId,
         required: true,
-        ref: "test",
+        ref: "topic",
     },
     owner: {
         type: Schema.Types.ObjectId,

@@ -3,7 +3,7 @@ import { handleSaveError, preUpdate } from "./hooks.js";
 
 const taskProgressSchema = new Schema(
   {
-    score: {
+    maxScore: {
       type: Number,
       required: [true, "score quantity is required"]
     },

@@ -3,7 +3,9 @@ import { remakeTask } from "../../helpers/task-remakers/index.js";
 import { Task } from "../../models/Task.js";
 
 const getTestTasks = async (req, res, next) => {
-  const topicId = req.params.topicId;
+  const {topicId} = req.params;
+  console.log(topicId);
+  
   const result = await Task.find({ isTest: true, topic: topicId });
   if (!result) {
     throw HttpError(
@@ -11,6 +13,8 @@ const getTestTasks = async (req, res, next) => {
       `Can not find any test task for topic with id ${topicId}`
     );
   }
+  console.log(result);
+  
   const remakedTasks = await Promise.all(
     result.map((item) => remakeTask(item))
   );

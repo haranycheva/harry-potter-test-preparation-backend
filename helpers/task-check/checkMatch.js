@@ -1,6 +1,7 @@
 import { Question } from "../../models/Question.js";
 import { Task } from "../../models/Task.js";
-import bcrypt from "bcryptjs";
+import { HttpError } from "../index.js";
+import {findRightAnswers} from "./index.js";
 
 const checkMatch = async (task) => {
   const { _id, answer: userAnswer } = task;
@@ -19,7 +20,7 @@ const checkMatch = async (task) => {
     );
   }
   const comparedMatches = userAnswer.every((item) =>
-    matchesArr.some((match) => match._id === item.condition)
+    matchesArr.some((match) => String(match._id) === item.condition)
   );
   if (!comparedMatches) {
     throw HttpError(
@@ -27,24 +28,11 @@ const checkMatch = async (task) => {
       `Can not find matches from user's answers in task with id ${_id}`
     );
   }
-  const rightAnswers = userAnswer.reduce(findRightAnswersQuant, {
-    score: 0,
-    answers: [],
-  });
+  const rightAnswers = await findRightAnswers(userAnswer);
   const score = Math.floor(
     (digestTask.possibleScore / digestTask.questionsQuant) * rightAnswers.score
   );
-  return {score, userAnswers: rightAnswers.answers};
+  return { score, userAnswers: rightAnswers.answers };
 };
-
-function findRightAnswersQuant(accum, item) {
-  const { condition, answer } = item;
-  if (bcrypt.compare(condition, answer)) {
-    const answers = [...accum.answers, { condition, answer, isCorrect: true }];
-    return { score: (accum.score += 1), answers };
-  }
-  const answers = [...accum.answers, { condition, answer, isCorrect: false }];
-  return { score: accum.score, userAnswer: answers };
-}
 
 export default checkMatch;

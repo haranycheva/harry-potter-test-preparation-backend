@@ -9,9 +9,9 @@ const checkOptions = async (task) => {
   }
   const correctAnsw = await Option.findOne({task: _id, isCorrect: true})
   if(String(correctAnsw._id) === selectedOptionId){
-    return {score: digestTask.possibleScore, userAnswer: selectedOptionId}
+    return {score: digestTask.possibleScore, userAnswer: {selectedOptionId, isCorrect: true},}
   }
-  return {score: 0, userAnswer: selectedOptionId};
+  return {score: 0, userAnswer: {selectedOptionId, isCorrect: false}};
 };
 
 export default checkOptions;

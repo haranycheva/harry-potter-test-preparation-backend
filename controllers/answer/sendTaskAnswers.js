@@ -10,12 +10,12 @@ const sendTaskAnswers = async (req, res, next) => {
     owner: userId,
   });
   if (taskProgress) {
-    const score =
-      taskProgress.score > taskResults.score
-        ? taskProgress.score
+    const maxScore =
+      taskProgress.maxScore > taskResults.score
+        ? taskProgress.maxScore
         : taskResults.score;
-    await TaskProgress.findByIdAndUpdate(taskProgress._id, { score });
-    return res.json({ ...taskResults, score });
+    await TaskProgress.findByIdAndUpdate(taskProgress._id, { maxScore });
+    return res.json({ ...taskResults, maxScore });
   }
   const newTaskProgress = await TaskProgress.create({
     task: taskId,
@@ -25,7 +25,7 @@ const sendTaskAnswers = async (req, res, next) => {
   if (!newTaskProgress) {
     throw HttpError(500, `Creating task progress for task ${taskId} failed`);
   }
-  return res.json(taskResults);
+  return res.json({taskResults, maxScore: taskResults.score});
 };
 
 export default sendTaskAnswers;

@@ -22,7 +22,7 @@ digestRouter.get(
 );
 
 digestRouter.get(
-  "/test/:id",
+  "/test/:topicId",
   digestControllers.getTestTasks
 );
 

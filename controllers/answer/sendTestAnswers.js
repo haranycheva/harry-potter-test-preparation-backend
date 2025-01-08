@@ -10,31 +10,33 @@ const sendTestAnswers = async (req, res, next) => {
     score: 0,
     userAnswers: [],
   };
-  const testResults = await Promise.all(
-    userAnswers.reduce(async (accum, item) => {
-      const taskResults = await checkTask(item);
-      return {
-        score: accum.score + taskResults.score,
-        userAnswers: [...accum.userAnswers, taskResults.userAnswer],
-      };
-    }),
-    checkedTest
-  );
+
+  const testResults = await userAnswers.reduce(async (accumPromise, item) => {
+    const accum = await accumPromise;
+    const taskResults = await checkTask(item);
+    return {
+      score: accum.score + taskResults.score,
+      userAnswers: [...accum.userAnswers, taskResults.userAnswer],
+    };
+  }, Promise.resolve(checkedTest));
+
   const test = await Task.find({ isTest: true, topic: topicId });
-  const maxScore = test.reduce((accum, item) => accum + item.possibleScore);
-  const completed = testResults.score / maxScore >= 0.9;
+  const possibleScore = test.reduce(
+    (accum, item) => accum + item.possibleScore, 0
+  );
+  const completed = testResults.score / possibleScore >= 0.9;
   const testProgress = await TestProgress.findOne({
     topic: topicId,
     owner: userId,
   });
   if (testProgress) {
-    const score =
-      testProgress.score > testResults.score
-        ? testProgress.score
+    const maxScore =
+      testProgress.maxScore > testResults.score
+        ? testProgress.maxScore
         : testResults.score;
     const updatedTestProgress = await TestProgress.findByIdAndUpdate(
       testProgress._id,
-      { score }
+      { maxScore }
     );
     if (!updatedTestProgress) {
       throw HttpError(
@@ -42,12 +44,12 @@ const sendTestAnswers = async (req, res, next) => {
         `Updating test progress for test from topic with id: ${topicId} failed`
       );
     }
-    return res.json({ ...testResults, score, maxScore, completed });
+    return res.json({ ...testResults, maxScore, completed, possibleScore });
   }
   const newTestProgress = await TestProgress.create({
     topic: topicId,
     owner: userId,
-    score: testResults.score,
+    maxScore: testResults.score,
   });
   if (!newTestProgress) {
     throw HttpError(
@@ -55,7 +57,12 @@ const sendTestAnswers = async (req, res, next) => {
       `Creating test progress for test from topic with id: ${topicId} failed`
     );
   }
-  return res.json({ ...testResults, maxScore, completed });
+  return res.json({
+    ...testResults,
+    possibleScore,
+    completed,
+    maxScore: testResults.score,
+  });
 };
 
 export default sendTestAnswers;
