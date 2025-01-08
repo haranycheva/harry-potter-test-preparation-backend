@@ -1,4 +1,3 @@
-import { log } from "console";
 import ctrlWrapper from "../decorators/ctrlWrapper.js";
 import { HttpError } from "../helpers/index.js";
 import { User } from "../models/User.js";

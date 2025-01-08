@@ -1,4 +1,5 @@
-import { HttpError, remakeTask } from "../../helpers/index.js";
+import { HttpError } from "../../helpers/index.js";
+import { remakeTask } from "../../helpers/task-remakers/index.js";
 import { Task } from "../../models/Task.js";
 
 const getTopicTasksInformation = async (req, res, next) => {

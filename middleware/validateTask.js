@@ -1,4 +1,4 @@
-import {taskTypeSwitch} from "../decorators/index.js";
+import { taskTypeSwitch } from "../dispatchers/index.js"
 import { checkSchema } from "../helpers/index.js";
 import {
   InputTaskValidationSchema,

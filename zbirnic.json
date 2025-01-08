@@ -1,0 +1,289 @@
+[
+  {
+    "name": "Раціональні числа та дії з ними",
+    "number": 1,
+    "totalTasks": 10,
+    "tasks": [
+      {
+        "condition": "Обчиліть 12+88:4-5",
+        "type": "options",
+        "possibleScore": 1,
+        "options": [
+          { "name": "29", "isCorrect": true },
+          { "name": "30", "isCorrect": false },
+          { "name": "20", "isCorrect": false },
+          { "name": "39", "isCorrect": false },
+          { "name": "28", "isCorrect": false }
+        ]
+      },
+      {
+        "condition": "Один з операторів комп’ютерного набору може набрати певний рукопис, працюючи самостійно, за 30 днів, а інший – за 60 днів. За скільки днів виконають набір рукопису оператори, працюючи разом?",
+        "caption": "Введіть просто число",
+        "possibleScore": 3,
+        "type": "input",
+        "answer": "20"
+      },
+      {
+        
+          "condition": "Укажіть найбільший спільний дільник чисел 24 і 36",
+          "type": "options",
+          "possibleScore": 1,
+          "options": [
+            { "name": "1", "isCorrect": false },
+            { "name": "6", "isCorrect": false },
+            { "name": "12", "isCorrect": true },
+            { "name": "24", "isCorrect": false },
+            { "name": "72", "isCorrect": false }
+          ]
+      }, 
+      {
+        "condition": "Обчисліть (-8 - (-2)) : (-4)",
+        "type": "options",
+        "possibleScore": 1,
+        "options": [
+          { "name": "2,5", "isCorrect": false },
+          { "name": "1,5", "isCorrect": false },
+          { "name": "-2,5", "isCorrect": false },
+          { "name": "-1,5", "isCorrect": false },
+          { "name": "-2", "isCorrect": true }
+        ]
+      },
+      {
+        "condition": "Скільки цілих чисел на координатній прямій розташовано між числами -200,5 і 105,7?",
+        "type": "options",
+        "possibleScore": 1,
+        "options": [
+          { "name": "304", "isCorrect": false },
+          { "name": "305", "isCorrect": false },
+          { "name": "306", "isCorrect": true },
+          { "name": "307", "isCorrect": false },
+          { "name": "308", "isCorrect": false }
+        ]
+      },
+      {
+        "condition": "Знайдіть найменше спільне кратне чисел 48, 60 і 72",
+        "caption": "Введіть просто число",
+        "possibleScore": 3,
+        "type": "input",
+        "answer": "720"
+      },
+      {
+        "condition": "Знайдіть найменше натуральне чотироцифрове число яке кратне числам 3,5 та 11",
+        "caption": "Введіть просто число",
+        "possibleScore": 3,
+        "type": "input",
+        "answer": "1155"
+      },
+      {
+        "condition": "Яку частку отримаємо при діленні числа 819 на на 21?",
+        "caption": "Введіть просто число",
+        "possibleScore": 3,
+        "type": "input",
+        "answer": "39"
+      },
+      {        
+        "condition": "Будівельна компанія придбала для нового будинку металопластикові вікна і двері, причому вікон було придбано у 3 рази більше, ніж дверей. Укажіть число, якому може дорівнювати загальна кількість вікон і дверей у цьому будинку.",
+        "type": "options",
+        "possibleScore": 1,
+        "options": [
+          { "name": "103", "isCorrect": false },
+          { "name": "104", "isCorrect": true },
+          { "name": "106", "isCorrect": false },
+          { "name": "109", "isCorrect": false },
+          { "name": "110", "isCorrect": false }
+        ]
+      },
+      {
+        "condition": "Обчиліть (-3+(-5))*6",
+        "type": "options",
+        "possibleScore": 1,
+        "options": [
+          { "name": "-12", "isCorrect": false },
+          { "name": "48", "isCorrect": false },
+          { "name": "12", "isCorrect": false },
+          { "name": "-48", "isCorrect": true },
+          { "name": "-33", "isCorrect": false }
+        ]
+      }
+    ],
+    "test": {
+      "possibleScore": 4,
+      "tasks": [
+        {
+          "condition": "Обчиліть 15+60:3-9",
+          "type": "options",
+          "possibleScore": 1,
+          "isTest":true, 
+          "options": [
+            { "name": "20", "isCorrect": false },
+            { "name": "16", "isCorrect": false },
+            { "name": "24", "isCorrect": false },
+            { "name": "28", "isCorrect": false },
+            { "name": "26", "isCorrect": true }
+          ]
+        },
+        {
+          "condition": "Майстриня художнього розпису та її учениця, працюючи разом, виконують певну роботу за 20 год. Працюючи самостійно, майстриня може виконати цю роботу за 36 год. За скільки годин може виконати цю роботу самостійно її учениця?",
+          "caption": "Введіть просто число",
+          "isTest":true, 
+          "possibleScore": 3,
+          "type": "input",
+          "answer": "45"
+        }, 
+        {        
+          "condition": "Укажіть найбільший спільний дільник чисел 45 і 60",
+          "type": "options",
+          "isTest":true, 
+          "possibleScore": 1,
+          "options": [
+            { "name": "1", "isCorrect": false },
+            { "name": "3", "isCorrect": false },
+            { "name": "5", "isCorrect": false },
+            { "name": "15", "isCorrect": true },
+            { "name": "180", "isCorrect": false }
+          ]
+        }, 
+        {
+          "condition": "Скільки є цілих чисел х, що задовольняють нерівність -307,1 < х < 200,9",
+          "type": "options",
+          "isTest":true, 
+          "possibleScore": 1,
+          "options": [
+            { "name": "506", "isCorrect": false },
+            { "name": "507", "isCorrect": false },
+            { "name": "508", "isCorrect": true },
+            { "name": "509", "isCorrect": false },
+            { "name": "510", "isCorrect": false }
+          ]
+        },
+        {
+          "condition": "Обчисліть (-16-(-3)):2",
+          "type": "options",
+          "isTest":true, 
+          "possibleScore": 1,
+          "options": [
+            { "name": "-6,5", "isCorrect": true },
+            { "name": "6,5", "isCorrect": false },
+            { "name": "9,5", "isCorrect": false },
+            { "name": "-9,5", "isCorrect": false },
+            { "name": "-14,5", "isCorrect": false }
+          ]
+        },
+        {
+          "condition": "Знайдіть найменше спільне кратне чисел 50, 60 і 75",
+          "caption": "Введіть просто число",
+          "isTest":true, 
+          "possibleScore": 3,
+          "type": "input",
+          "answer": "300"
+        },
+        {        
+          "condition": "Марічка зліпила вареники з вишнями та з картоплею, причому вареників з вишнями в 4 рази більше, ніж з картоплею. Укажіть число, якому може дорівнювати загальна кількість вареників. ",
+          "type": "options",
+          "isTest":true, 
+          "possibleScore": 1,
+          "options": [
+            { "name": "63", "isCorrect": false },
+            { "name": "72", "isCorrect": false },
+            { "name": "45", "isCorrect": true },
+            { "name": "37", "isCorrect": false },
+            { "name": "91", "isCorrect": false }
+          ]
+        }, 
+        {
+          "condition": "Знайдіть найменше натуральне чотироцифрове число яке кратне числам 3,7 та 13",
+          "caption": "Введіть просто число",
+          "isTest":true, 
+          "possibleScore": 3,
+          "type": "input",
+          "answer": "819"
+        },
+        {
+          "condition": "Яку частку отримаємо при діленні числа 1155 на на 15?",
+          "caption": "Введіть просто число",
+          "isTest":true, 
+          "possibleScore": 3,
+          "type": "input",
+          "answer": "77"
+        },
+        {
+          "condition": "(-9+(-11))*(-2)",
+          "type": "options",
+          "isTest":true, 
+          "possibleScore": 1,
+          "options": [
+            { "name": "4", "isCorrect": false },
+            { "name": "-4", "isCorrect": false },
+            { "name": "40", "isCorrect": true },
+            { "name": "-40", "isCorrect": false },
+            { "name": "0", "isCorrect": false }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "name": "Розв'язування текстових задач арифметичними способами",
+    "number": 2,
+    "totalTasks": 1,
+    "tasks": [
+      {
+        "condition": "Готуючись до ЗНО, Олена запланувала протягом осінніх канікул розв’язати 300 задач. Першого дня вона розв’язала 3/20 від цієї кількості задач, а другого – 0,2 решти. Установіть відповідність між запитанням (1–4) та правильною відповіддю на нього (А–Д).",
+        "type": "match",
+        "possibleScore": 4,
+        "questionCaption": "Запитання",
+        "answerCaption": " Правильна відповідь",
+        "oddAnwers": ["60"],
+        "questions": [
+          {
+            "condition": "Скільки задач розв'язала Олена першого дня?",
+            "answer": "45"
+          },
+          {
+            "condition": "Скільки задач розв'язала Олена другого дня?",
+            "answer": "51"
+          },
+          {
+            "condition": "Скільки задач розв'язала Олена за два дні?",
+            "answer": "96"
+          },
+          {
+            "condition": "Скільки задач лишилось розв'язати олені після двох згадагих днів роботи?",
+            "answer": "204"
+          }
+        ]
+      }
+    ],
+    "test": {
+      "possibleScore": 4,
+      "tasks": [
+        {
+          "condition": "Готуючись до ЗНО, Олена запланувала протягом осінніх канікул розв’язати 300 задач. Першого дня вона розв’язала 3/20 від цієї кількості задач, а другого – 0,2 решти. Установіть відповідність між запитанням (1–4) та правильною відповіддю на нього (А–Д).",
+          "type": "match",
+          "possibleScore": 4,
+          "questionCaption": "Запитання",
+          "answersCaption": " Правильна відповідь",
+          "oddAnwers": ["60"],
+          "questions": [
+            {
+              "condition": "Скільки задач розв'язала Олена першого дня?",
+              "answer": "45"
+            },
+            {
+              "condition": "Скільки задач розв'язала Олена другого дня?",
+              "answer": "51"
+            },
+            {
+              "condition": "Скільки задач розв'язала Олена за два дні?",
+              "answer": "96"
+            },
+            {
+              "condition": "Скільки задач лишилось розв'язати олені після двох згадагих днів роботи?",
+              "answer": "204"
+            }
+          ]
+        }
+      ]
+    }
+  }
+]

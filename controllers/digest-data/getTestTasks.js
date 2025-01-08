@@ -1,4 +1,5 @@
 import { HttpError } from "../../helpers/index.js";
+import { remakeTask } from "../../helpers/task-remakers/index.js";
 import { Task } from "../../models/Task.js";
 
 const getTestTasks = async (req, res, next) => {
@@ -10,7 +11,9 @@ const getTestTasks = async (req, res, next) => {
       `Can not find any test task for topic with id ${topicId}`
     );
   }
-  const remakedTasks = result.map((item) => remakeTask(item));
+  const remakedTasks = await Promise.all(
+    result.map((item) => remakeTask(item))
+  );
   res.json(remakedTasks);
 };
 

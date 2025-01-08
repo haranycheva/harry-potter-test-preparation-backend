@@ -1,4 +1,5 @@
-import { remakeTask, HttpError } from "../../helpers/index.js";
+import { HttpError } from "../../helpers/index.js";
+import { remakeTask } from "../../helpers/task-remakers/index.js";
 import { Task } from "../../models/Task.js";
 
 const getTaskById = async (req, res, next) => {

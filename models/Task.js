@@ -1,6 +1,5 @@
 import { model, Schema } from "mongoose";
 import { handleSaveError, preUpdate } from "./hooks.js";
-import mongoose from "mongoose";
 
 const taskSchema = new Schema(
   {

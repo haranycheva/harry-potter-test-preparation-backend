@@ -1,5 +1,5 @@
 import { Option } from "../../models/Option.js";
-import {shuffleArray} from "../index.js";
+import {HttpError, shuffleArray} from "../index.js";
 
 const remakeOptions = async (task) => {
   const {
@@ -11,13 +11,13 @@ const remakeOptions = async (task) => {
     topic,
     conditionPicture,
   } = task;
-  const optionsArr = await Option.find({ task: _id }).select("-_id -task");
+  const optionsArr = await Option.find({ task: _id }).select("-task");
   if (!optionsArr) {
     throw HttpError(404, `Can not find options for match task with id: ${_id}`);
   }
   const correctAnswer = optionsArr.find((item) => item.isCorrect);
   if (!correctAnswer) {
-    throw new Error("No correct answer found in the array.");
+    throw HttpError(404, `No correct answer found in the array of options in task ${_id}`);
   }
   const incorrectAnswers = optionsArr.filter((item) => !item.isCorrect);
   const randomIncorrect = shuffleArray(incorrectAnswers).slice(
@@ -25,7 +25,7 @@ const remakeOptions = async (task) => {
     optionsQuant - 1
   );
 
-  const result = shuffleArray([...randomIncorrect, correctAnswer].map((item) => item.name));
+  const result = shuffleArray([...randomIncorrect, correctAnswer].map(({name, _id: key}) => ({name, key})));
   return {
     condition,
     possibleScore,

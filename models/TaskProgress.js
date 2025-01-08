@@ -24,4 +24,4 @@ taskProgressSchema.post("save", handleSaveError);
 taskProgressSchema.pre("findOneAndUpdate", preUpdate);
 taskProgressSchema.post("findOneAndUpdate", handleSaveError);
 
-export const TaskProgress = model("test-prog", taskProgressSchema);
+export const TaskProgress = model("task-prog", taskProgressSchema);
