@@ -1,28 +1,24 @@
 import express from "express";
 import digestControllers from "../controllers/digest-controllers.js";
-import authorization  from "../middleware/authorization.js";
+import authorization from "../middleware/authorization.js";
 
 const digestRouter = express.Router();
 
-digestRouter.get("/", digestControllers.getAllTopics);
+digestRouter.get("/", authorization, digestControllers.getAllTopics);
+
+digestRouter.get(authorization, "/:id", digestControllers.getTopicById);
+
+digestRouter.get(authorization, "/task/:id", digestControllers.getTaskById);
 
 digestRouter.get(
-  "/:id",
-  digestControllers.getTopicById
-);
-
-digestRouter.get(
-  "/task/:id",
-  digestControllers.getTaskById
-);
-
-digestRouter.get(
+  authorization,
   "/tasks/:topicId",
   digestControllers.getTopicTasksInformation
 );
 
 digestRouter.get(
-  "/test/:topicId",
+  authorization,
+  "/test/::topicId",
   digestControllers.getTestTasks
 );
 
