@@ -6,19 +6,19 @@ const digestRouter = express.Router();
 
 digestRouter.get("/", authorization, digestControllers.getAllTopics);
 
-digestRouter.get(authorization, "/:id", digestControllers.getTopicById);
+digestRouter.get("/:id", authorization, digestControllers.getTopicById);
 
-digestRouter.get(authorization, "/task/:id", digestControllers.getTaskById);
+digestRouter.get("/task/:id", authorization, digestControllers.getTaskById);
 
 digestRouter.get(
-  authorization,
   "/tasks/:topicId",
+  authorization,
   digestControllers.getTopicTasksInformation
 );
 
 digestRouter.get(
-  authorization,
   "/test/::topicId",
+  authorization,
   digestControllers.getTestTasks
 );
 
