@@ -1,8 +1,9 @@
 import Joi from "joi"
 
-const InputAnswerValidationSchema = Joi.object({
-    answer: Joi.string().required(),
+const OptionsAnswerValidationSchema = Joi.object({
+    selectedOptionId: Joi.string().required(),
     _id: Joi.string().required(),
+    type: Joi.string().valid("options"),
 })
 
-export default InputAnswerValidationSchema
+export default OptionsAnswerValidationSchema
