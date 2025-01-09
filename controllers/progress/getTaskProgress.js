@@ -14,8 +14,8 @@ const getTaskProgress = async (req, res, next) => {
       `Can not find task progress for task with id: ${taskId}`
     );
   }
-  const { maxScore, owner, task } = taskProgress;
-  res.json({ maxScore, owner, task });
-};
+  const { maxScore, owner, task, wasCompleted } = taskProgress;
+  res.json({ maxScore, owner, task, wasCompleted });
+}; 
 
 export default getTaskProgress;
