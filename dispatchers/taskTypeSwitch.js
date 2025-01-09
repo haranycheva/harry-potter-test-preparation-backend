@@ -1,3 +1,5 @@
+
+
 const taskTypeSwitch = async (task, forInput, forOptions, forMatch) => {
   const type = task.type;
   switch (type) {
@@ -7,6 +9,8 @@ const taskTypeSwitch = async (task, forInput, forOptions, forMatch) => {
       return await forOptions(task);
     case "match":
       return await forMatch(task);
+    default:
+      return
   }
 };
 

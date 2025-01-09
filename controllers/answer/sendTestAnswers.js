@@ -14,6 +14,12 @@ const sendTestAnswers = async (req, res, next) => {
   const testResults = await userAnswers.reduce(async (accumPromise, item) => {
     const accum = await accumPromise;
     const taskResults = await checkTask(item);
+    if (!taskResults) {
+      throw HttpError(
+        400,
+        `This type of task is not supported or the type is not entered for task with id: ${item._id}`
+      );
+    }
     return {
       score: accum.score + taskResults.score,
       userAnswers: [...accum.userAnswers, taskResults.userAnswer],

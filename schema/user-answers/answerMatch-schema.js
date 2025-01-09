@@ -8,7 +8,7 @@ const MatchAnswerValidationSchema = Joi.object({
     }).required()
   ),
   _id: Joi.string().required(),
-  type: Joi.string().valid("options"),
+  type: Joi.string().valid("match"),
 });
 
 export default MatchAnswerValidationSchema;

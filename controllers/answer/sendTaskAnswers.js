@@ -1,3 +1,4 @@
+import {HttpError} from "../../helpers/index.js";
 import updateTopicProgress from "../../helpers/progresses/updateTopicProgress.js";
 import { checkTask } from "../../helpers/task-check/index.js";
 import { Task } from "../../models/Task.js";
@@ -7,33 +8,44 @@ const sendTaskAnswers = async (req, res, next) => {
   const { _id: userId } = req.user;
   const { _id: taskId } = req.body;
   const taskResults = await checkTask({ ...req.body, _id: taskId });
+  if (!taskResults) {
+    throw HttpError(
+      400,
+      `This type of task is not supported or the type is not entered`
+    );
+  }
+  console.log(taskResults);
+
   const taskProgress = await TaskProgress.findOne({
     task: taskId,
     owner: userId,
   });
-  const task = await Task.findById(taskId)
+  const task = await Task.findById(taskId);
   if (taskProgress) {
     const maxScore =
       taskProgress.maxScore > taskResults.score
         ? taskProgress.maxScore
         : taskResults.score;
-    if(maxScore === task.possibleScore && !taskProgress.wasCompleted){
-      await updateTopicProgress(task.topic, userId)
-      taskProgress.wasCompleted = true
+    if (maxScore === task.possibleScore && !taskProgress.wasCompleted) {
+      await updateTopicProgress(task.topic, userId);
+      taskProgress.wasCompleted = true;
     }
-    await TaskProgress.findByIdAndUpdate(taskProgress._id, { maxScore, wasCompleted: taskProgress.wasCompleted });
+    await TaskProgress.findByIdAndUpdate(taskProgress._id, {
+      maxScore,
+      wasCompleted: taskProgress.wasCompleted,
+    });
     return res.json({ ...taskResults, maxScore });
   }
-  let wasCompleted = false
-  if(taskResults.score === task.possibleScore){
-    await updateTopicProgress(task.topic, userId)
-    wasCompleted = true
+  let wasCompleted = false;
+  if (taskResults.score === task.possibleScore) {
+    await updateTopicProgress(task.topic, userId);
+    wasCompleted = true;
   }
   const newTaskProgress = await TaskProgress.create({
     task: taskId,
     owner: userId,
     maxScore: taskResults.score,
-    wasCompleted
+    wasCompleted,
   });
   if (!newTaskProgress) {
     throw HttpError(500, `Creating task progress for task ${taskId} failed`);
