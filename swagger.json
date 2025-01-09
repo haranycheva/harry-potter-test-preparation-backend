@@ -29,6 +29,18 @@
     {
       "name": "Digest",
       "description": "Information from digest gets"
+    },
+    {
+      "name": "Answer",
+      "description": "Send user`s answers"
+    },
+    {
+      "name": "Progresses",
+      "description": "Progresses endpoints"
+    },
+    {
+      "name": "AiChat",
+      "description": "AiChat endpoints"
     }
   ],
   "paths": {
@@ -348,7 +360,7 @@
     "/topic/test/{id}": {
       "get": {
         "tags": ["Digest"],
-        "summary": "Get test tasks by ID",
+        "summary": "Get test tasks by topic id",
         "security": [{ "Bearer": [] }],
         "parameters": [
           {
@@ -382,6 +394,280 @@
           "500": {
             "description": "Server error",
             "content": {}
+          }
+        }
+      }
+    },
+    "/answers/": {
+      "post": {
+        "tags": ["Answer"],
+        "summary": "Send user`s answer for some task",
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
+          "description": "Answer's object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SendTaskAnswerRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SendTaskAnswerResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Topic or tasks not found",
+            "content": {}
+          },
+          "500": {
+            "description": "Server error",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/answers/{topicId}": {
+      "post": {
+        "tags": ["Answer"],
+        "security": [{ "Bearer": [] }],
+        "summary": "Submit Test Answers",
+        "description": "Processes user-submitted answers for a test, calculates the score, and returns the result.",
+        "parameters": [
+          {
+            "name": "topicId",
+            "in": "path",
+            "required": true,
+            "description": "The ID of the topic associated with the test.",
+            "schema": {
+              "type": "string",
+              "example": "6778234615b1d06324cd3605"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TestAnswerRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully processed answers.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TestAnswerResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ai-chat/": {
+      "get": {
+        "tags": ["AiChat"],
+        "summary": "Get user`s ai chat",
+        "security": [{ "Bearer": [] }],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/createChatResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authorized",
+            "content": {}
+          },
+          "404": {
+            "description": "Can not find ai chat for this user",
+            "content": {}
+          }
+        }
+      },
+      "post": {
+        "tags": ["AiChat"],
+        "summary": "Create user`s ai chat",
+        "security": [{ "Bearer": [] }],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/createChatResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authorized",
+            "content": {}
+          },
+          "404": {
+            "description": "Can not find ai chat for this user",
+            "content": {}
+          }
+        }
+      },
+      "put": {
+        "tags": ["AiChat"],
+        "summary": "Send message to ai and get response",
+        "security": [{ "Bearer": [] }],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/sendMessageToAiResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authorized",
+            "content": {}
+          },
+          "404": {
+            "description": "Can not find ai chat for this user",
+            "content": {}
+          }
+        }
+      },
+      "delete": {
+        "tags": ["AiChat"],
+        "summary": "delete ai chat",
+        "security": [{ "Bearer": [] }],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeleteAiChatResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authorized/User not found",
+            "content": {}
+          },
+          "404": {
+            "description": "Ai chat for this user not found"
+          }
+        }
+      }
+    },
+    "/progress/test/{topicId}": {
+      "get": {
+        "tags": ["Progresses"],
+        "security": [{ "Bearer": [] }],
+        "summary": "Get test progress for a specific topic",
+        "parameters": [
+          {
+            "name": "topicId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "ID of the topic for which progress is requested",
+              "example": "63f8249b15c1a3d0567890ab"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Test progress data retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TestProgressResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/progress/task/{taskId}": {
+      "get": {
+        "tags": ["Progresses"],
+        "security": [{ "Bearer": [] }],
+        "summary": "Get task progress for a specific task",
+        "parameters": [
+          {
+            "name": "taskId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "ID of the task for which progress is requested",
+              "example": "63f8249b15c1a3d0567890ab"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Task progress data retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TaskProgressResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/progress/topic/{topicId}": {
+      "get": {
+        "tags": ["Progresses"],
+        "security": [{ "Bearer": [] }],
+        "summary": "Get topic progress for a specific topic",
+        "parameters": [
+          {
+            "name": "topicId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "ID of the topic for which progress is requested",
+              "example": "63f8249b15c1a3d0567890ab"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Topic progress data retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicProgressResponse"
+                }
+              }
+            }
           }
         }
       }
@@ -611,13 +897,280 @@
             "example": "20"
           }
         }
-      }
-    },
-    "securitySchemes": {
-      "Bearer": {
-        "type": "http",
-        "scheme": "bearer",
-        "bearerFormat": "JWT"
+      },
+      "SendTaskAnswerRequest": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "ID of the task",
+            "example": "6778364c6c758b0318d14efb"
+          },
+          "type": {
+            "type": "string",
+            "description": "Type of the task",
+            "example": "match"
+          },
+          "answer": {
+            "type": "array",
+            "description": "List of conditions and answers for the task",
+            "items": {
+              "type": "object",
+              "properties": {
+                "condition": {
+                  "type": "string",
+                  "description": "ID of the condition",
+                  "example": "677837366c758b0318d14efe"
+                },
+                "answer": {
+                  "type": "string",
+                  "description": "Hashed answer for the condition",
+                  "example": "$2a$10$OnFhImTY.yGbi7.2ekUvgeCywyuGt135XNmBBB1UyA4zJb0wddZCu"
+                }
+              }
+            }
+          }
+        }
+      },
+      "SendTaskAnswerResponse": {
+        "type": "object",
+        "properties": {
+          "taskResults": {
+            "type": "object",
+            "properties": {
+              "score": {
+                "type": "integer",
+                "description": "User's score for the task",
+                "example": 0
+              },
+              "userAnswers": {
+                "type": "array",
+                "description": "List of user's answers with correctness",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "condition": {
+                      "type": "string",
+                      "description": "ID of the condition or question",
+                      "example": "677837366c758b0318d14efe"
+                    },
+                    "answer": {
+                      "type": "string",
+                      "description": "Hashed user answer",
+                      "example": "$2a$10$OnFhImTY.yGbi7.2ekUvgeCywyuGt135XNmBBB1UyA4zJb0wddZCu"
+                    },
+                    "isCorrect": {
+                      "type": "boolean",
+                      "description": "Indicates if the answer is correct",
+                      "example": false
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "maxScore": {
+            "type": "integer",
+            "description": "Maximum score possible for the task",
+            "example": 0
+          }
+        }
+      },
+      "TestAnswerRequest": {
+        "type": "object",
+        "properties": {
+          "userAnswers": {
+            "type": "array",
+            "description": "An array of user-submitted answers.",
+            "items": {
+              "$ref": "#/components/schemas/UserAnswer"
+            }
+          }
+        },
+        "required": ["userAnswers"]
+      },
+      "UserAnswer": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "The ID of the task.",
+            "example": "677837366c758b0318d14efe"
+          },
+          "selectedOptionId": {
+            "type": "string",
+            "description": "The ID of the selected option (optional for answer-based tasks).",
+            "example": "6778219f15b1d06324cd35cc"
+          }
+        },
+        "required": ["_id", "selectedOptionId"]
+      },
+      "TestAnswerResponse": {
+        "type": "object",
+        "properties": {
+          "score": {
+            "type": "integer",
+            "description": "The user's score for the test.",
+            "example": 6
+          },
+          "userAnswers": {
+            "type": "array",
+            "description": "List of user answers with correctness information.",
+            "items": {
+              "$ref": "#/components/schemas/CheckedUserAnswer"
+            }
+          },
+          "maxScore": {
+            "type": "integer",
+            "description": "The highest score achieved by the user for the test.",
+            "example": 9
+          },
+          "completed": {
+            "type": "boolean",
+            "description": "Indicates if the test is completed (score >= 90% of possibleScore).",
+            "example": false
+          },
+          "possibleScore": {
+            "type": "integer",
+            "description": "The total possible score for the test.",
+            "example": 18
+          }
+        },
+        "required": [
+          "score",
+          "userAnswers",
+          "maxScore",
+          "completed",
+          "possibleScore"
+        ]
+      },
+      "CheckedUserAnswer": {
+        "type": "object",
+        "properties": {
+          "answer": {
+            "type": "string",
+            "description": "The user's submitted answer (optional for selectedOptionId-based tasks).",
+            "example": "300"
+          },
+          "isCorrect": {
+            "type": "boolean",
+            "description": "Indicates if the user's answer is correct.",
+            "example": false
+          }
+        },
+        "required": ["isCorrect"]
+      },
+      "sendMessageToAiResponse": {
+        "type": "object",
+        "properties": {
+          "content": {
+            "type": "string",
+            "description": "message text",
+            "example": "Of course I can help you! What's the question"
+          },
+          "role": {
+            "type": "string",
+            "enum": ["assistant", "user"],
+            "description": "who sent the message",
+            "example": "assistant"
+          }
+        }
+      },
+      "createChatResponse": {
+        "type": "object",
+        "properties": {
+          "messages": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/sendMessageToAiResponse"
+            }
+          },
+          "owner": {
+            "type": "string",
+            "description": "Owner's unique ID",
+            "example": "64b7c7f9a19f4b2c5d8c1a9d"
+          },
+          "_id": {
+            "type": "string",
+            "description": "Unique identifier for the advert",
+            "example": "64b7c7f9a19f4b2c5d8c1a9d"
+          }
+        }
+      },
+      "DeleteAiChatResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "chat is deleted",
+            "example": "success"
+          }
+        }
+      },
+      "TestProgressResponse": {
+        "type": "object",
+        "properties": {
+          "maxScore": {
+            "type": "integer",
+            "description": "The maximum score for the test",
+            "example": 100
+          },
+          "owner": {
+            "type": "string",
+            "description": "ID of the user who owns the test progress",
+            "example": "63f8249b15c1a3d0567890cd"
+          },
+          "topic": {
+            "type": "string",
+            "description": "ID of the topic related to the test progress",
+            "example": "63f8249b15c1a3d0567890ab"
+          }
+        }
+      },
+      "TaskProgressResponse": {
+        "type": "object",
+        "properties": {
+          "maxScore": {
+            "type": "integer",
+            "description": "The maximum score for the task",
+            "example": 100
+          },
+          "wasCompleted": {
+            "type": "boolean",
+            "description": "Indicates whether the task was completed",
+            "example": false
+          },
+          "owner": {
+            "type": "string",
+            "description": "ID of the user who owns the task progress",
+            "example": "63f8249b15c1a3d0567890cd"
+          },
+          "task": {
+            "type": "string",
+            "description": "ID of the related task",
+            "example": "63f8249b15c1a3d0567890ab"
+          }
+        }
+      },
+      "TopicProgressResponse": {
+        "type": "object",
+        "properties": {
+          "completedTasks": {
+            "type": "integer",
+            "description": "Number of completed tasks within the topic",
+            "example": 5
+          },
+          "owner": {
+            "type": "string",
+            "description": "ID of the user who owns the topic progress",
+            "example": "63f8249b15c1a3d0567890cd"
+          },
+          "topic": {
+            "type": "string",
+            "description": "ID of the related topic",
+            "example": "63f8249b15c1a3d0567890ab"
+          }
+        }
       }
     }
   }
