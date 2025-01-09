@@ -7,6 +7,7 @@ import adminsRouter from "./routes/admins-router.js";
 import digestRouter from "./routes/digest-router.js";
 import answerRouter from "./routes/answer-router.js";
 import progressRouter from "./routes/progress-router.js";
+import aiRouter from "./routes/ai-router.js";
 
 const app = express();
 
@@ -23,6 +24,8 @@ app.use("/topic", digestRouter);
 app.use("/answers", answerRouter);
 
 app.use("/progress", progressRouter);
+
+app.use("/ai-chat", aiRouter)
 
 app.use("/docs", swaggerui.serve, swaggerui.setup(swaggerDocument));
 
