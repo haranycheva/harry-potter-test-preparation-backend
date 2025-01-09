@@ -3,13 +3,9 @@ import { handleSaveError, preUpdate } from "./hooks.js";
 
 const topicProgressSchema = new Schema(
   {
-    aviable: {
-      type: Boolean,
-      required: [true, "aviability of topic is required"],
-    },
     completedTasks: {
       type: Number,
-      required: [true, "completed tasks quantity is required"]
+      default: 0,
     },
     topic: {
         type: Schema.Types.ObjectId,

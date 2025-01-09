@@ -7,6 +7,10 @@ const taskProgressSchema = new Schema(
       type: Number,
       required: [true, "score quantity is required"]
     },
+    wasCompleted: {
+      type: Boolean,
+      default: false
+    },
     task: {
         type: Schema.Types.ObjectId,
         required: true,
