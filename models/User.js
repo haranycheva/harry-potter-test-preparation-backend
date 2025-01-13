@@ -39,7 +39,7 @@ const userSchema = new Schema(
     },
     currentTopic:  {
       type: Schema.Types.ObjectId,
-      required: true,
+      default: "",
       ref: "topic",
   },
     token: {
