@@ -14,9 +14,9 @@ const signin = async (req, res, next) => {
     throw HttpError(409, "Email or password are invalid");
   }
   const token = createToken(user)
-  await User.findByIdAndUpdate(user._id, { token });
+  const newUser = await User.findByIdAndUpdate(user._id, { token });
   res.json({
-    token: user.token,
+    token: newUser.token,
     user: {
       email,
       _id: user._id,
