@@ -17,7 +17,7 @@ digestRouter.get(
 );
 
 digestRouter.get(
-  "/test/::topicId",
+  "/test/:topicId",
   authorization,
   digestControllers.getTestTasks
 );
