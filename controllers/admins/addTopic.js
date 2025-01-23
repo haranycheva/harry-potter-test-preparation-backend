@@ -3,7 +3,6 @@ import { Topic } from "../../models/Topic.js";
 
 const addTopic = async (req, res) => {
   const { name, number } = req.body;
-  console.log(name, number )
   const topic = await Topic.findOne({number});
   if (topic){
     throw HttpError(409, "Topic with that number already exists");

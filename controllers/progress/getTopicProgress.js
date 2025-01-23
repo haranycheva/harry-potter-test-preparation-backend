@@ -8,8 +8,6 @@ const getTopicProgress = async (req, res, next) => {
     owner: userId,
     topic: topicId,
   });
-  console.log(1);
-  
   if (!topicProgress) {
     throw HttpError(
       404,

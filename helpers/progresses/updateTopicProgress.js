@@ -33,7 +33,7 @@ const updateTopicProgress = async (topicId, userId, currentTopic) => {
     topicProgress._id,
     { completedTasks: topicProgress.completedTasks + 1 }
   );
-  if(topicProgress.topic === currentTopic){
+  if(topicProgress.topic.toString() === currentTopic.toString()){
     updateUserProgress(userId, topicProgress.completedTasks / topic.totalTasks )
   }
   return updatedTopicProgress;

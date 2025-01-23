@@ -5,7 +5,7 @@ import { Task } from "../../models/Task.js";
 import { TaskProgress } from "../../models/TaskProgress.js";
 
 const sendTaskAnswers = async (req, res, next) => {
-  const { _id: userId } = req.user;
+  const { _id: userId, currentTopic } = req.user;
   const { _id: taskId } = req.body;
   const taskResults = await checkTask({ ...req.body, _id: taskId });
   if (!taskResults) {
@@ -14,8 +14,6 @@ const sendTaskAnswers = async (req, res, next) => {
       `This type of task is not supported or the type is not entered`
     );
   }
-  console.log(taskResults);
-
   const taskProgress = await TaskProgress.findOne({
     task: taskId,
     owner: userId,
@@ -27,7 +25,7 @@ const sendTaskAnswers = async (req, res, next) => {
         ? taskProgress.maxScore
         : taskResults.score;
     if (maxScore === task.possibleScore && !taskProgress.wasCompleted) {
-      await updateTopicProgress(task.topic, userId);
+      await updateTopicProgress(task.topic, userId, currentTopic);
       taskProgress.wasCompleted = true;
     }
     await TaskProgress.findByIdAndUpdate(taskProgress._id, {
@@ -38,7 +36,7 @@ const sendTaskAnswers = async (req, res, next) => {
   }
   let wasCompleted = false;
   if (taskResults.score === task.possibleScore) {
-    await updateTopicProgress(task.topic, userId);
+    await updateTopicProgress(task.topic, userId, currentTopic);
     wasCompleted = true;
   }
   const newTaskProgress = await TaskProgress.create({
