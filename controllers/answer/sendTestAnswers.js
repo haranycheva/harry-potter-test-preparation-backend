@@ -1,3 +1,4 @@
+import {HttpError} from "../../helpers/index.js";
 import { checkTask } from "../../helpers/task-check/index.js";
 import { Task } from "../../models/Task.js";
 import { TestProgress } from "../../models/TestProgress.js";
