@@ -9,7 +9,7 @@ const remakeOptions = async (task) => {
     type,
     optionsQuant,
     topic,
-    conditionPicture,
+    captionPicture,
   } = task;
   const optionsArr = await Option.find({ task: _id }).select("-task");
   if (!optionsArr) {
@@ -24,7 +24,7 @@ const remakeOptions = async (task) => {
     0,
     optionsQuant - 1
   );
-
+  
   const result = shuffleArray([...randomIncorrect, correctAnswer].map(({name, _id: key}) => ({name, key})));
   return {
     condition,
@@ -32,7 +32,7 @@ const remakeOptions = async (task) => {
     type,
     optionsQuant,
     topic,
-    conditionPicture,
+    captionPicture,
     _id,
     options: result,
   };

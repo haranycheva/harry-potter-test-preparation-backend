@@ -3,7 +3,7 @@ import { shuffleArray } from "../index.js";
 import bcrypt from "bcryptjs";
 
 const remakeMatch = async (task) => {
-  const { _id, condition, answersCaption, possibleScore, questionCaption, type, questionsQuant, topic, conditionPicture } = task;
+  const { _id, condition, answersCaption, possibleScore, questionCaption, type, questionsQuant, topic, captionPicture } = task;
   const matchesArr = await Question.find({ task: _id }).select("-task");
   if (!matchesArr) {
     throw HttpError(
@@ -34,7 +34,7 @@ const remakeMatch = async (task) => {
     questionCaption,
     type,
     questionsQuant,
-    conditionPicture,
+    captionPicture,
     ...matches,
   };
   return remakedTask;
