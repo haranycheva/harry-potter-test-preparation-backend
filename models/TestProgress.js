@@ -17,6 +17,10 @@ const testProgressSchema = new Schema(
         required: true,
         ref: "user",
       },
+      completed: {
+        type: Boolean,
+        default: false
+      }
   },
   { versionKey: false }
 );
