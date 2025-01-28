@@ -43,7 +43,7 @@ const sendTestAnswers = async (req, res, next) => {
         : testResults.score;
     const updatedTestProgress = await TestProgress.findByIdAndUpdate(
       testProgress._id,
-      { maxScore }
+      { maxScore, completed }
     );
     if (!updatedTestProgress) {
       throw HttpError(
@@ -57,6 +57,7 @@ const sendTestAnswers = async (req, res, next) => {
     topic: topicId,
     owner: userId,
     maxScore: testResults.score,
+    completed
   });
   if (!newTestProgress) {
     throw HttpError(
