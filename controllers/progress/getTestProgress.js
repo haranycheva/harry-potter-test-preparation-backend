@@ -8,15 +8,12 @@ const getTestProgress = async (req, res, next) => {
     owner: userId,
     topic: topicId,
   });
-
   if (!testProgress) {
     throw HttpError(
       404,
       `Can not find test progress for topic with id: ${topicId}`
     );
   }
-  console.log(223);
-  
   const { maxScore, owner, topic, completed } = testProgress;
   res.json({ maxScore, owner, topic, completed });
 };
