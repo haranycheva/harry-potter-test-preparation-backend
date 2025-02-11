@@ -11,6 +11,7 @@ const getAllTopics = async (req, res) => {
   if (!result) {
     throw HttpError(404, `Can not find any topics`);
   }
+  result.sort((a, b) => a.number - b.number);
   res.json({result: result, total: totalTopics});
 };
 
