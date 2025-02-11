@@ -48,7 +48,7 @@ const sendTaskAnswers = async (req, res, next) => {
   if (!newTaskProgress) {
     throw HttpError(500, `Creating task progress for task ${taskId} failed`);
   }
-  return res.json({ taskResults, maxScore: taskResults.score, possibleScore: task.possibleScore});
+  return res.json({ ...taskResults, maxScore: taskResults.score, possibleScore: task.possibleScore});
 };
 
 export default sendTaskAnswers;
